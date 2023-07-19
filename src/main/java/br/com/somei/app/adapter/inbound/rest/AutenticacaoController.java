@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/autenticacao")
 public class AutenticacaoController {
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -30,7 +30,7 @@ public class AutenticacaoController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity login(@RequestBody AutenticacaoDto autenticacaoDto){
 
         var authenticationToken = new UsernamePasswordAuthenticationToken(autenticacaoDto.login(), autenticacaoDto.senha());
@@ -41,8 +41,8 @@ public class AutenticacaoController {
         return ResponseEntity.ok(new TokenJTWDto(tokenJWT) );
     }
 
-    @PostMapping("/cadastro")
-    public ResponseEntity<?> signUp(@RequestBody Usuario usuario) {
+    @PostMapping("/cadastrar")
+    public ResponseEntity cadastrar(@RequestBody Usuario usuario) {
 
         var existingUser = usuarioService.loadUserByUsername(usuario.getUsername());
         if (existingUser != null) {
@@ -56,5 +56,4 @@ public class AutenticacaoController {
 
         return ResponseEntity.ok("Usuário cadastrado com sucesso");
     }
-
 }
