@@ -41,7 +41,7 @@ public class AutenticacaoController {
         return ResponseEntity.ok(new TokenJTWDto(tokenJWT) );
     }
 
-    @PostMapping("/cadastrar")
+    @PostMapping("/cadastro")
     public ResponseEntity cadastrar(@RequestBody Usuario usuario) {
 
         var existingUser = usuarioService.loadUserByUsername(usuario.getUsername());
